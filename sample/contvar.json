@@ -1,0 +1,12 @@
+{
+  "variables": [
+    {
+      "name": "contvar_domain_name",
+      "prompt": "What is your project domain name? e.g. contemplate"
+    },
+    {
+      "name": "contvar_project_name",
+      "prompt": "What is your project name? e.g. myspringjwtexample"
+    }
+  ]
+}
