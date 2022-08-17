@@ -4,13 +4,19 @@
 const inputArgs = process.argv.splice(process.execArgv.length + 2);
 
 // Retrieve the first argument
-const url = inputArgs[0];
+const firstArg = inputArgs[0];
 const args = inputArgs.slice(1, inputArgs.length)
+
+if(inputArgs.length === 0 || firstArg === '--help' || firstArg === '-h'){
+    // TODO: provision help for users to illustrate how this can be used
+    console.log("Show help")
+    return
+}
 
 const {contemplate} = require('../index.js');
 contemplate({
     git: {
-        url,
+        url: firstArg,
         args
     }
 })
