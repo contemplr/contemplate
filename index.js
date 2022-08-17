@@ -1,7 +1,10 @@
-const {cloneRepository} = require("./git.index")
 const fs = require("fs");
+const {cloneRepository} = require("./utils/git")
+const {errorAndExit, info, infoGreen} = require("./utils");
+const {replaceOccurrences} = require("./utils/replace");
+
+// initiate prompt stream
 const readline = require('readline');
-const {errorAndExit, info, infoWhite} = require("./utils.index");
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -9,8 +12,15 @@ const rl = readline.createInterface({
 const util = require('util');
 const question = util.promisify(rl.question).bind(rl);
 
+// this represents the name of the configuration file in the template repository
+// actual full name [contemplate + variables]
 const CONFIG_FILE_NAME = "contvar.json"
 
+/**
+ * Take the destination folder as input and read out the configuration specification
+ * @param destFolder The cloned template folder destination
+ * @returns {Object} The template configuration [CONFIG_FILE_NAME] content is returned as a JSONObject
+ */
 function configFromJSON(destFolder) {
     const file = `${destFolder}/${CONFIG_FILE_NAME}`
 
@@ -26,21 +36,29 @@ function configFromJSON(destFolder) {
     return configObj
 }
 
+/**
+ * This collects the custom inputs from user to be used for the template customization
+ * @param config The JSON object of the project customization
+ * @returns {Object} The variables + inputs from user returned as a JSONObject
+ */
 async function collectInputs(config) {
     const variables = config.variables
-    for(let i = 0; i < variables.length; i++) {
+    for (let i = 0; i < variables.length; i++) {
         const variable = variables[i]
-        if(!variable || typeof variable !== 'object')
+        if (!variable || typeof variable !== 'object')
             continue // if the variable is invalid continue to next item
 
         const name = variable['name']
         const prompt = variable['prompt']
 
-        if(!name) continue // if the variable name is invalid continue to next item
+        if (!name) continue // if the variable name is invalid continue to next item
 
         // collect the `value` of a variable `name` from the user
-        infoWhite(prompt ?? `Enter the value for "${name}":`)
+        infoGreen(prompt ?? `Enter the value for "${name}":`)
         variable['value'] = await question("")
+
+        //TODO: allow specification of regex to test the input provided by the user
+        //   this can be used to guide the accepted/expected inputs from users
 
         delete variable['prompt'] // remove the prompt property from the object to lighten the result
     }
@@ -49,33 +67,8 @@ async function collectInputs(config) {
     return variables
 }
 
-function replaceOccurrences(destFolder, variables) {
-    // console.log(variables)
-    const files = fs.readdirSync(destFolder, {withFileTypes: true})
-    // console.log(files)
-
-    // using divide and conquer process each variable replacement
-    let pivot = files.length / 2
-    if(pivot < 2) pivot = files.length
-    _replaceOccurrences(destFolder, files.slice(0, pivot), variables).then()
-    _replaceOccurrences(destFolder, files.slice(pivot + 1, files.length), variables).then()
-}
-
-async function _replaceOccurrences(destFolder, files, variables) {
-    // console.log(files)
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i]
-        if(file.isDirectory()) {
-            console.log(`${destFolder}/${file.name}`)
-            replaceOccurrences(`${destFolder}/${file.name}`, variables)
-            continue
-        }
-
-        // TODO: set file size limit, read individual files async, and find and replace occurrences
-        //  there's a need to limit file size because files of outrageous size are most likely
-        //  media files rather than editable files + also ignore dot files and files without extension
-        //  except user explicitly wants them to be processed
-    }
+function cleanup(destFolder) {
+    // TODO: remove the configuration file as part of clean up
 }
 
 const contemplate = (props = {}) => {
@@ -83,11 +76,16 @@ const contemplate = (props = {}) => {
     const {
         git: {
             url // the git or repository url the template is to be pulled from
-        }
+        },
+        excludeFoldersRegex
     } = props
 
     if (typeof url !== 'string') {
         errorAndExit(`❌  Please specify your repository URL \`contemplate {repository_url}\`)`)
+    }
+
+    if (excludeFoldersRegex && !Array.isArray(excludeFoldersRegex)) {
+        errorAndExit(`❌  "excludeFoldersRegex" should be an Array, ${typeof excludeFoldersRegex} provided`)
     }
 
     info(` - 🔮 Generating template [${url}]`)
@@ -96,14 +94,24 @@ const contemplate = (props = {}) => {
 
         info(` - 🔍 Reading variables configuration [contvar.json]`)
         const config = configFromJSON(destFolder)
+        console.log("") // empty line before prompts
 
         info(` - 🛠 Let's customize your new project...`)
-        console.log("") // empty line before questions
+        console.log("") // empty line before prompts
 
         // collect variable inputs as value from user
-        collectInputs(config)
-            .then(variables => replaceOccurrences(destFolder, variables))
+        collectInputs(config).then(variables => {
+            console.log("") // empty line before prompts
+
+            // start replacing variables
+            info(` - ⏳ Working...`)
+            replaceOccurrences(destFolder, variables, excludeFoldersRegex)
+        }).then(() => {
+            // clean up templated folder & done
+            cleanup(destFolder)
+            info(` - ✅ Done!`)
+        })
     }).catch(e => errorAndExit(`❌  ${e.message}`))
 }
 
-module.exports = {contemplate, configFromJSON, replaceOccurrences}
+module.exports = {contemplate, configFromJSON}

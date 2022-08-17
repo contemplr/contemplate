@@ -8,7 +8,7 @@ function infoWhite(message) {
     console.log(clc.white(message))
 }
 
-function green(message) {
+function infoGreen(message) {
     console.log(clc.green(message))
 }
 
@@ -17,4 +17,4 @@ function errorAndExit(message) {
     process.exit(1)
 }
 
-module.exports = {errorAndExit, info, infoWhite, green}
+module.exports = {errorAndExit, info, infoWhite, infoGreen}

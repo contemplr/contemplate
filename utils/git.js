@@ -1,8 +1,9 @@
 const {exec} = require("child_process");
 const fs = require("fs");
-const {info} = require("./utils.index");
+const {info} = require("./index");
 
-// https://stackoverflow.com/a/5717133/11984714
+// Kudos to solution from SO: https://stackoverflow.com/a/5717133/11984714
+// this allows validating git repository URL without an external library
 function isValidURL(input) {
     return input !== null && input !== undefined &&
         new RegExp('^(https?:\\/\\/)?' + // protocol

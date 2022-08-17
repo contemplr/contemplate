@@ -1,5 +1,4 @@
-const SRC_TEMPLATE_REPOSITORY = "https://github.com/developersunesis/springboot-auth-jwt.git"
-const {configFromJSON, contemplate} = require("../index");
+const {configFromJSON} = require("../index");
 
 test("fails reading variables file because it's missing", () => {
     return expect(() => configFromJSON("./missingFolder")).toThrow()

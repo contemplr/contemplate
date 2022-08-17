@@ -1,5 +1,5 @@
 const SRC_TEMPLATE_REPOSITORY = "https://github.com/developersunesis/springboot-auth-jwt.git"
-const {cloneRepository, fetchFolderName} = require("../git.index");
+const {cloneRepository, fetchFolderName} = require("../utils/git");
 const fs = require("fs");
 
 test("fails if url is invalid", async () => {
