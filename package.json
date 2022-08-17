@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "bin": {
-    "contemplate": "./bin/contemplate.js"
+    "contemplate": "./bin/index.js"
   },
   "preferGlobal": true,
   "keywords": [],
