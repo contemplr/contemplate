@@ -26,4 +26,16 @@ function welcomeMessage() {
     console.log()
 }
 
-module.exports = {errorAndExit, info, infoWhite, infoGreen, welcomeMessage}
+function showHelpInstructions() {
+    welcomeMessage()
+
+    const helpInstructions = "Usage: contemplate {repository_url} [destination_folder] \n" +
+        "\ni.e.:" +
+        "\ncontemplate https://github.com/developersunesis/springboot-auth-jwt.git RoughIdeaApp"
+
+    console.log(helpInstructions)
+    console.log()
+    console.log()
+}
+
+module.exports = {errorAndExit, info, infoWhite, infoGreen, welcomeMessage, showHelpInstructions}
