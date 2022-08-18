@@ -20,6 +20,7 @@ async function replaceTextOccurrencesWhere(path, variables) {
             if (err) reject(err)
 
             let result = data
+            let newPath = path
             for (let v = 0; v < variables.length; v++) {
                 const variable = variables[v]
                 const name = variable.name
@@ -28,10 +29,16 @@ async function replaceTextOccurrencesWhere(path, variables) {
                 if (!name || !value) continue
 
                 result = result.replaceAll(name, value)
+                newPath = newPath.replaceAll(name, value)
             }
 
             fs.writeFile(path, result, 'utf8', function (err) {
                 if (err) reject(err)
+
+                // rename file where need be if the new path doesn't match the initial path
+                if(path !== newPath){
+                    fs.renameSync(path, newPath)
+                }
                 resolve(path)
             });
         });
