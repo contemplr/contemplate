@@ -17,4 +17,13 @@ function errorAndExit(message) {
     process.exit(1)
 }
 
-module.exports = {errorAndExit, info, infoWhite, infoGreen}
+function welcomeMessage() {
+    console.log("  _                                       \n" +
+        " / ` _   _  _)_ _   _ _   _   ) _  _)_ _  \n" +
+        "(_. (_) ) ) (_ )_) ) ) ) )_) ( (_( (_ )_) \n" +
+        "              (_        (            (_   ")
+    console.log()
+    console.log()
+}
+
+module.exports = {errorAndExit, info, infoWhite, infoGreen, welcomeMessage}

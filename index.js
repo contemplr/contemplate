@@ -1,6 +1,6 @@
 const fs = require("fs");
 const {cloneRepository} = require("./utils/git")
-const {errorAndExit, info, infoGreen} = require("./utils");
+const {errorAndExit, info, infoGreen, welcomeMessage} = require("./utils");
 const {replaceOccurrences} = require("./utils/replace");
 
 // initiate prompt stream
@@ -60,6 +60,8 @@ async function collectInputs(config) {
         //TODO: allow specification of regex to test the input provided by the user
         //   this can be used to guide the accepted/expected inputs from users
 
+        //TODO: check if variable['optional'] is true which allow user to skip specifying a value
+
         delete variable['prompt'] // remove the prompt property from the object to lighten the result
     }
 
@@ -72,6 +74,9 @@ function cleanup(destFolder) {
 }
 
 const contemplate = (props = {}) => {
+    // show tool welcome message
+    welcomeMessage()
+
     // properties that'll be used to guide the "contemplation" process
     const {
         git: {
@@ -94,14 +99,14 @@ const contemplate = (props = {}) => {
 
         info(` - 🔍 Reading variables configuration [contvar.json]`)
         const config = configFromJSON(destFolder)
-        console.log("") // empty line before prompts
+        console.log() // empty line before prompts
 
         info(` - 🛠 Let's customize your new project...`)
-        console.log("") // empty line before prompts
+        console.log() // empty line before prompts
 
         // collect variable inputs as value from user
         collectInputs(config).then(variables => {
-            console.log("") // empty line before prompts
+            console.log() // empty line before prompts
 
             // start replacing variables
             info(` - ⏳ Working...`)
