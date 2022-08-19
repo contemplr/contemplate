@@ -1,16 +1,31 @@
 {
-  "name": "contemplate",
+  "name": "@contemplr/contemplate",
   "version": "1.0.0",
   "description": "A tool to generate git template and populate variables for the templated repository",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contemplr/contemplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/contemplr/contemplate/issues"
+  },
+  "homepage": "https://github.com/contemplr/contemplate",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "publish": "npm publish --access public"
   },
   "bin": {
-    "contemplate": "./bin/index.js"
+    "contemplate": "bin/index.js"
   },
+  "private": false,
   "preferGlobal": true,
-  "keywords": [],
+  "keywords": [
+    "git",
+    "template",
+    "templating",
+    "auto-templating"
+  ],
   "author": "developersunesis",
   "license": "MIT",
   "devDependencies": {
@@ -19,5 +34,8 @@
   },
   "dependencies": {
     "cli-color": "^2.0.3"
+  },
+  "directories": {
+    "test": "tests"
   }
 }
