@@ -43,26 +43,37 @@ function configFromJSON(destFolder) {
  */
 async function collectInputs(config) {
     const variables = config.variables
-    for (let i = 0; i < variables.length; i++) {
+    let i = 0
+    while (i < variables.length) {
         const variable = variables[i]
-        if (!variable || typeof variable !== 'object')
+        if (!variable || typeof variable !== 'object') {
+            i += 1 // move to the next variable
             continue // if the variable is invalid continue to next item
+        }
 
         const name = variable['name']
-        const prompt = variable['prompt']
+        if (!name) {
+            i += 1 // move to the next variable
+            continue // if the variable name is invalid continue to next item
+        }
 
-        if (!name) continue // if the variable name is invalid continue to next item
+        const prompt = variable['prompt']
 
         // collect the `value` of a variable `name` from the user
         infoGreen(prompt ?? `Enter the value for "${name}":`)
-        variable['value'] = await question("")
+        const value = await question("")
 
         //TODO: allow specification of regex to test the input provided by the user
-        //   this can be used to guide the accepted/expected inputs from users
+        //  this can be used to guide the accepted/expected inputs from users
+        //  Also, check if variable['optional'] is true which allow user to skip specifying a value
 
-        //TODO: check if variable['optional'] is true which allow user to skip specifying a value
+        // For now, if user enters an invalid value, repeat question again
+        if(!value || value.trim() === '') continue
 
+        variable['value'] = value // set the user's input as the variable value
         delete variable['prompt'] // remove the prompt property from the object to lighten the result
+
+        i += 1 // move to the next variable
     }
 
     rl.close()
@@ -71,6 +82,9 @@ async function collectInputs(config) {
 
 function cleanup(destFolder) {
     // TODO: remove the configuration file as part of clean up
+    //  also we can specify an `after` property in the configuration that allows users to specify run
+    //  commands like `mvn install` or `npm install` after contemplate is done generating a template
+    //  for it to install the dependencies of the template
 }
 
 const contemplate = (props = {}) => {

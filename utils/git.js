@@ -40,7 +40,6 @@ function cloneRepository(props = {}) {
             reject(new Error(`Invalid arguments "${args.join(" ")}". \nArguments must be of array type`))
         }
 
-        // TODO: add args
         exec(`git clone ${url} ${args.join(' ')}`, (error, stdout, stderr) => {
             if (stderr) {
                 info(String(stderr))
