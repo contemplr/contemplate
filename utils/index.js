@@ -22,8 +22,18 @@ function welcomeMessage() {
         " / ` _   _  _)_ _   _ _   _   ) _  _)_ _  \n" +
         "(_. (_) ) ) (_ )_) ) ) ) )_) ( (_( (_ )_) \n" +
         "              (_        (            (_   ")
-    console.log()
-    console.log()
+    console.log("\n")
 }
 
-module.exports = {errorAndExit, info, infoWhite, infoGreen, welcomeMessage}
+function showHelpInstructions() {
+    welcomeMessage()
+
+    const helpInstructions = "\033[1mUSAGE\033[0m \ncontemplate repository_url [destination_folder] \n" +
+        "\nFor example:\n  " +
+        "$ \033[1mcontemplate https://github.com/developersunesis/springboot-auth-jwt.git\033[0m RoughIdeaApp"
+
+    console.log(helpInstructions)
+    console.log("\n")
+}
+
+module.exports = {errorAndExit, info, infoWhite, infoGreen, welcomeMessage, showHelpInstructions}
