@@ -1,7 +1,7 @@
 {
   "name": "@contemplr/contemplate",
   "version": "1.0.0",
-  "description": "A tool to generate git template and populate variables for the templated repository",
+  "description": "CLI to generate git template and populate variables for the templated repository",
   "main": "index.js",
   "repository": {
     "type": "git",
