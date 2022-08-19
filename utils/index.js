@@ -30,7 +30,7 @@ function showHelpInstructions() {
 
     const helpInstructions = "\033[1mUSAGE\033[0m \ncontemplate repository_url [destination_folder] \n" +
         "\nFor example:\n  " +
-        "$ \033[1mcontemplate https://github.com/developersunesis/springboot-auth-jwt.git\033[0m RoughIdeaApp"
+        "$ \033[1mcontemplate https://github.com/contemplr/spring-sample-auth-jwt\033[0m RubyHera"
 
     console.log(helpInstructions)
     console.log("\n")
