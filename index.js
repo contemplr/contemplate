@@ -83,7 +83,7 @@ async function collectInputs(config) {
 }
 
 function cleanup(destFolder) {
-    // TODO: remove the configuration file as part of clean up
+    // TODO: consider removing the configuration file as part of clean up
     //  also we can specify an `after` property in the configuration that allows users to specify run
     //  commands like `mvn install` or `npm install` after contemplate is done generating a template
     //  for it to install the dependencies of the template
