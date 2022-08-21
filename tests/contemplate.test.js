@@ -33,4 +33,5 @@ test("check variable name validity", () => {
     expect(isValidVariableName("contvarNoUnderScore")).toBe(true)
     expect(isValidVariableName("invalid")).toBe(false)
     expect(isValidVariableName("Example")).toBe(false)
+    expect(isValidVariableName("contvar")).toBe(false)
 })
