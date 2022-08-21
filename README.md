@@ -29,7 +29,7 @@ spring-sample-auth-jwt
 
 The configuration file allows you to specify customizable variables/parameters within the project.
 
-Example:
+Example: [spring-sample-auth-jwt/contvar.json](https://github.com/contemplr/spring-sample-auth-jwt/blob/master/contvar.json)
 ```json
 {
   "variables": [
@@ -44,8 +44,30 @@ Example:
       ]
     },
     {
+      "name": "contvarDomainName",
+      "prompt": "Specify domain name of the project? e.g. com.{your input}",
+      "checks": [
+        {
+          "check": "^[A-z0-9]+$",
+          "error": "Project name must be only letters or numbers"
+        }
+      ]
+    },
+    {
+      "name": "contvarX-Access-Token",
+      "prompt": "Specify access token response header name?",
+      "value": "X-Access-Token",
+      "checks": [
+        {
+          "check": "^[A-z-]+$",
+          "error": "Project name must be only letters and hyphen"
+        }
+      ]
+    },
+    {
       "name": "contvarX-Refresh-Token",
       "prompt": "Specify refresh token response header name?",
+      "value": "X-Refresh-Token",
       "checks": [
         {
           "check": "^[A-z-]+$",

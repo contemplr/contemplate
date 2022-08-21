@@ -23,7 +23,7 @@ function isInvalidInput(checks, value){
 }
 
 function isValidVariableName(name){
-    return name && name.startsWith("contvar")
+    return name && name.startsWith("contvar") && name !== "contvar"
 }
 
 module.exports = {isInvalidInput, isValidVariableName}
