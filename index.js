@@ -1,6 +1,6 @@
 const fs = require("fs");
 const {cloneRepository} = require("./utils/git")
-const {errorAndExit, info, infoGreen, welcomeMessage} = require("./utils");
+const {errorAndExit, info, infoGreen, welcomeMessage, error} = require("./utils/logger");
 const {replaceOccurrences} = require("./utils/replace");
 
 // initiate prompt stream
@@ -10,6 +10,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 const util = require('util');
+const {isInvalidInput, isValidVariableName} = require("./utils/inputs");
 const question = util.promisify(rl.question).bind(rl);
 
 // this represents the name of the configuration file in the template repository
@@ -46,13 +47,14 @@ async function collectInputs(config) {
     let i = 0
     while (i < variables.length) {
         const variable = variables[i]
+        const checks = variable.checks
         if (!variable || typeof variable !== 'object') {
             i += 1 // move to the next variable
             continue // if the variable is invalid continue to next item
         }
 
         const name = variable['name']
-        if (!name) {
+        if (!name && isValidVariableName(name)) {
             i += 1 // move to the next variable
             continue // if the variable name is invalid continue to next item
         }
@@ -68,7 +70,11 @@ async function collectInputs(config) {
         //  Also, check if variable['optional'] is true which allow user to skip specifying a value
 
         // For now, if user enters an invalid value, repeat question again
-        if(!value || value.trim() === '') continue
+        const errorMessage = isInvalidInput(checks, value)
+        if(errorMessage !== true) {
+            error(errorMessage)
+            continue
+        }
 
         variable['value'] = value // set the user's input as the variable value
         delete variable['prompt'] // remove the prompt property from the object to lighten the result

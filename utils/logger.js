@@ -4,16 +4,16 @@ function info(message) {
     console.log(message)
 }
 
-function infoWhite(message) {
-    console.log(clc.white(message))
-}
-
 function infoGreen(message) {
     console.log(clc.green(message))
 }
 
+function error(message){
+    console.log(clc.red("Error: " + message))
+}
+
 function errorAndExit(message) {
-    console.log(clc.red(message))
+    error(message)
     process.exit(1)
 }
 
@@ -36,4 +36,4 @@ function showHelpInstructions() {
     console.log("\n")
 }
 
-module.exports = {errorAndExit, info, infoWhite, infoGreen, welcomeMessage, showHelpInstructions}
+module.exports = {errorAndExit, info, error, infoGreen, welcomeMessage, showHelpInstructions}

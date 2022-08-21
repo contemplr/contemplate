@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const {contemplate} = require('../index.js');
-const {showHelpInstructions} = require("../utils");
+const {showHelpInstructions} = require("../utils/logger");
 
 // Delete the 0 and 1 argument (node and script.js)
 const inputArgs = process.argv.splice(process.execArgv.length + 2);

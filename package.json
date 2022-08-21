@@ -12,7 +12,7 @@
   },
   "homepage": "https://github.com/contemplr/contemplate",
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "publish": "npm publish --access public"
   },
   "bin": {
@@ -37,5 +37,9 @@
   },
   "directories": {
     "test": "tests"
+  },
+  "jest": {
+    "verbose": true,
+    "transformIgnorePatterns": ["/node_modules/", "\\.pnp\\.[^\\\/]+$", "/utils/logger.js"]
   }
 }

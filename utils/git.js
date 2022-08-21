@@ -1,6 +1,6 @@
 const {exec} = require("child_process");
 const fs = require("fs");
-const {info} = require("./index");
+const {info} = require("./logger");
 
 // Kudos to solution from SO: https://stackoverflow.com/a/5717133/11984714
 // this allows validating git repository URL without an external library

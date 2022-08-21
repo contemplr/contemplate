@@ -1,4 +1,3 @@
-const SRC_TEMPLATE_REPOSITORY = "https://github.com/developersunesis/springboot-auth-jwt.git"
 const {cloneRepository, fetchFolderName} = require("../utils/git");
 const fs = require("fs");
 
@@ -44,7 +43,7 @@ test("successfully fetch folder name", async () => {
 test("successfully clone git repository url into custom folder [example]", async () => {
     const iProps = {
         git: {
-            url: SRC_TEMPLATE_REPOSITORY,
+            url: "https://github.com/contemplr/contemplate.git",
             args: ["example"]
         }
     }
