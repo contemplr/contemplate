@@ -173,7 +173,7 @@ contemplate https://github.com/contemplr/spring-sample-auth-jwt.git NewApp
 ```
 or using npx
 ```bash
-npx contemplate https://github.com/contemplr/spring-sample-auth-jwt.git NewApp
+npx @contemplr/contemplate https://github.com/contemplr/spring-sample-auth-jwt.git NewApp
 ```
 <br/>
 
