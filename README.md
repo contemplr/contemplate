@@ -58,60 +58,60 @@ Example:
 
 ##### Configuration keys
 
-`variables` represents a list of all customizable variables and parameter in the template.
+* `variables` represents a list of all customizable variables and parameter in the template.
 Each variable can either be a content in a file or a file name that can be customized.
 
-Example (file
-content): [spring-sample-auth-jwt/pom.xml](https://github.com/contemplr/spring-sample-auth-jwt/blob/master/pom.xml)
+    Example (file
+    content): [spring-sample-auth-jwt/pom.xml](https://github.com/contemplr/spring-sample-auth-jwt/blob/master/pom.xml)
+    
+    ```xml
+    <project>
+        <groupId>com.contvarDomainName</groupId>
+        <artifactId>contvarAppName</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <name>contvarAppName</name>
+        <description>contvarAppName</description>
+    </project>
+    ```
+    
+    Example (file
+    name): [spring-sample-auth-jwt/src/.../AuthController.java](https://github.com/contemplr/spring-sample-auth-jwt/blob/master/src/main/java/com/auth/example/controllers/AuthController.java)
+    
+    ```java
+    public void reauthorize(@RequestHeader("contvarX-Refresh-Token") String refreshToken) {
+        ...
+    }                            
+    ```
+    
+    Example (file
+    name): [spring-sample-auth-jwt/src/.../example](https://github.com/contemplr/spring-sample-auth-jwt/tree/master/src/main/java/com/auth/example)
+    
+    ```
+    spring-sample-auth-jwt
+    ├── controllers
+    ├── entities
+    ├── ...
+    ├── contvarAppNameApplication.java
+    ```
+    
+    N.B: <em>Variable names must start with the keyword `contvar`, the library uses this to identify what is
+    can be customized.</em>
+    <br/><br/>
 
-```xml
-<project>
-    <groupId>com.contvarDomainName</groupId>
-    <artifactId>contvarAppName</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>contvarAppName</name>
-    <description>contvarAppName</description>
-</project>
-```
-
-Example (file
-name): [spring-sample-auth-jwt/src/.../AuthController.java](https://github.com/contemplr/spring-sample-auth-jwt/blob/master/src/main/java/com/auth/example/controllers/AuthController.java)
-
-```java
-public void reauthorize(@RequestHeader("contvarX-Refresh-Token") String refreshToken) {
-    ...
-}                            
-```
-
-Example (file
-name): [spring-sample-auth-jwt/src/.../example](https://github.com/contemplr/spring-sample-auth-jwt/tree/master/src/main/java/com/auth/example)
-
-```
-spring-sample-auth-jwt
-├── controllers
-├── entities
-├── ...
-├── contvarAppNameApplication.java
-```
-
-N.B: <em>Variable names must start with the keyword `contvar`, the library uses this to identify what is
-can be customized.</em>
-<br/><br/>
-
-`prompt` (optional) property represents some explanation of the variable to be customized. You can use this as a prompt
+* `prompt` (optional) property represents some explanation of the variable to be customized. You can use this as a prompt
 question
 to the user. If this is not provided, a default prompt will be used
 ``Enter the value for "variable name":``.
 <br/><br/>
 
-`checks` (optional) represents a list of constraints a template owner can specify against the inputs of user.
+* `checks` (optional) represents a list of constraints a template owner can specify against the inputs of user.
 Each child of this property takes in:
 
-- `check` property a Regex that'll be used to test inputs
-- `error` property an error message to show a user when an input fails a check
-<br/><br/>
+  - `check` property a Regex that'll be used to test inputs
+  - `error` property an error message to show a user when an input fails a check
+  <br/><br/>
 
-`excludeFoldersRegex` (optional) property is used to specify the files or folders you would like to be excluded entirely
+* `excludeFoldersRegex` (optional) property is used to specify the files or folders you would like to be excluded entirely
 from customization. Example:
 ``"excludeFoldersRegex": [/.mvn/, /node_modules/]``
 <br/><br/>
