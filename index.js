@@ -65,10 +65,6 @@ async function collectInputs(config) {
         infoGreen(prompt ?? `Enter the value for "${name}":`)
         const value = await question("")
 
-        //TODO: allow specification of regex to test the input provided by the user
-        //  this can be used to guide the accepted/expected inputs from users
-        //  Also, check if variable['optional'] is true which allow user to skip specifying a value
-
         // For now, if user enters an invalid value, repeat question again
         const errorMessage = isInvalidInput(checks, value)
         if(errorMessage !== true) {
