@@ -117,7 +117,7 @@ Each variable can either be a content in a file or a file name that can be custo
     ├── contvarAppNameApplication.java
     ```
     
-    N.B: <em>Variable names must start with the keyword `contvar`, the library uses this to identify what is
+    N.B: <em>Variable names must start with the keyword `contvar`, the library uses this to identify what
     can be customized.</em>
     <br/><br/>
 
