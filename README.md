@@ -171,6 +171,10 @@ contemplate repository_url [destination_folder]
 ```bash
 contemplate https://github.com/contemplr/spring-sample-auth-jwt.git NewApp
 ```
+or using npx
+```bash
+npx contemplate https://github.com/contemplr/spring-sample-auth-jwt.git NewApp
+```
 <br/>
 
 ### For Help
