@@ -7,6 +7,7 @@ capability for users. Customizable variables or parameters within a project can 
 owner, and a user will be prompted to specify values for these variables/parameters.
 
 `@contemplr/contemplate` is meant to add more flexibility to creating and managing your project templates.
+<br/>
 
 ## Usage
 
