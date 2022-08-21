@@ -1,7 +1,5 @@
 # @contemplr/contemplate
 
-<hr/>
-
 ![@contemplr/contemplate to generate a new project from template](contemplate-usage.png)
 
 This tool helps you improve your templating flow, allowing you to specify more in-depth customization
@@ -12,11 +10,10 @@ owner, and a user will be prompted to specify values for these variables/paramet
 
 ## Usage
 
-<hr/>
-
 #### Step 1 : Creating your template project
 
 To use this library, you will need to create a file named `contvar.json` in your project root.
+
 Example from [spring-sample-auth-jwt](https://github.com/contemplr/spring-sample-auth-jwt):
 
 ```
@@ -31,6 +28,7 @@ spring-sample-auth-jwt
 
 The configuration file allows you to specify customizable variables/parameters within the project.
 
+Example:
 ```json
 {
   "variables": [
@@ -152,8 +150,7 @@ contemplate https://github.com/contemplr/spring-sample-auth-jwt.git NewApp
 ```
 <br/>
 
-#### For Help
-<hr/>
+### For Help
 
 ```bash
 contemplate [-h]
